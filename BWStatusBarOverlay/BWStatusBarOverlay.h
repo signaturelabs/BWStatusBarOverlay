@@ -18,6 +18,7 @@
 #import <Foundation/Foundation.h>
 
 @class BWStatusBarOverlay;
+@class DDProgressView;
 
 typedef void (^BWStatusBarBasicBlock)(void);
 
@@ -33,7 +34,7 @@ typedef enum {
 } BWStatusBarOverlayStatus;
 
 @interface BWStatusBarOverlay : UIWindow {
-    UIView *_progressView;
+    DDProgressView *_progressView;
 }
 
 @property (nonatomic, assign) float progress;

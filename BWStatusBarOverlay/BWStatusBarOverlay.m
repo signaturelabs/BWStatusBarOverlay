@@ -18,6 +18,7 @@
 #import "BWStatusBarOverlay.h"
 
 #import <QuartzCore/QuartzCore.h>
+#import "DDProgressView.h"
 
 #define ROTATION_ANIMATION_DURATION [UIApplication sharedApplication].statusBarOrientationAnimationDuration
 #define STATUS_BAR_HEIGHT CGRectGetHeight([UIApplication sharedApplication].statusBarFrame)
@@ -108,9 +109,13 @@
         _contentView = [[UIView alloc] initWithFrame:self.frame];
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:self.contentView];
-        
-        _progressView = [[UIView alloc] initWithFrame:self.frame];
-        _progressView.frame = CGRectMake(0, 0, 0, CGRectGetHeight(self.frame));
+
+        int progressBarWidth = 100;
+        int progressBarX = statusBarWidth - (progressBarWidth + 3);
+        _progressView = [[DDProgressView alloc] initWithFrame: CGRectMake(progressBarX, 3, progressBarWidth, 0)];
+        [_progressView setOuterColor: [UIColor clearColor]];
+        [_progressView setInnerColor: [UIColor lightGrayColor]];
+        [_progressView setEmptyColor: [UIColor darkGrayColor]];
         [self.contentView addSubview:_progressView];
         
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -129,13 +134,13 @@
         [self.contentView addSubview:self.statusLabel];
         
         _textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.textLabel.frame = CGRectMake(CGRectGetWidth(self.activityView.frame) + 10,
+        self.textLabel.frame = CGRectMake(5,
                                           0,
                                           statusBarWidth - (CGRectGetWidth(self.activityView.frame) * 2) - (10 * 2),
                                           statusBarHeight);
         self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.font = TEXT_LABEL_FONT;
-        self.textLabel.textAlignment = UITextAlignmentCenter;
+        self.textLabel.textAlignment = UITextAlignmentLeft;
         [self.contentView addSubview:self.textLabel];
         
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressOnView:)];
@@ -210,17 +215,8 @@
 - (void)setProgress:(float)progress animated:(BOOL)animated {
     _progress = progress;
     
-    CGRect frame = _progressView.frame;
-    CGFloat width = CGRectGetWidth(self.bounds);
-    frame.size.width = width * _progress;
+    [_progressView setProgress:progress];
     
-    if (animated) {
-        [UIView animateWithDuration:0.33 animations:^{
-            _progressView.frame = frame;
-        }];
-    } else {
-        _progressView.frame = frame;
-    }
 }
 
 
@@ -313,13 +309,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)setProgressBackgroundColor:(UIColor *)progressBackgroundColor {
-    _progressView.backgroundColor = progressBackgroundColor;
+    // _progressView.backgroundColor = progressBackgroundColor;
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (UIColor *)progressBackgroundColor {
-    return _progressView.backgroundColor;
+    // return _progressView.backgroundColor;
+    return [UIColor clearColor];
 }
 
 
