@@ -27,6 +27,7 @@
 #define IS_IPAD UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 
 #define TEXT_LABEL_FONT [UIFont boldSystemFontOfSize:12]
+#define TEXT_LABEL_FONT_COLOR [UIColor colorWithRed:191.0/255.0 green:191.0/255.0 blue:191.0/255.0 alpha:1.0];
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -131,6 +132,7 @@
         _statusLabel = [[UILabel alloc] initWithFrame:self.activityView.frame];
         self.statusLabel.backgroundColor = [UIColor clearColor];
         self.statusLabel.textAlignment = UITextAlignmentCenter;
+
         [self.contentView addSubview:self.statusLabel];
         
         _textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -140,6 +142,8 @@
                                           statusBarHeight);
         self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.font = TEXT_LABEL_FONT;
+        self.textLabel.textColor = TEXT_LABEL_FONT_COLOR;
+        
         self.textLabel.textAlignment = UITextAlignmentLeft;
         [self.contentView addSubview:self.textLabel];
         
@@ -473,7 +477,7 @@
         IS_IPAD) {
         
         [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"status-bar-pattern-black.jpg"]]];
-        self.textLabel.textColor = [UIColor whiteColor];
+        self.textLabel.textColor = TEXT_LABEL_FONT_COLOR;
         [self setProgressBackgroundColor:[UIColor colorWithRed:48/255.0f green:159/255.0f blue:211/255.0f alpha:1]];
         [self.activityView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
         
