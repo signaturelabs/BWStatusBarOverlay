@@ -113,7 +113,8 @@
 
         int progressBarWidth = 100;
         int progressBarX = statusBarWidth - (progressBarWidth + 3);
-        _progressView = [[DDProgressView alloc] initWithFrame: CGRectMake(progressBarX, 3, progressBarWidth, 0)];
+        int progressBarY = (statusBarHeight / 2) - 7;
+        _progressView = [[DDProgressView alloc] initWithFrame: CGRectMake(progressBarX, progressBarY, progressBarWidth, 0)];
         [_progressView setOuterColor: [UIColor clearColor]];
         [_progressView setInnerColor: [UIColor lightGrayColor]];
         [_progressView setEmptyColor: [UIColor darkGrayColor]];
