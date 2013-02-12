@@ -105,6 +105,11 @@
         CGFloat statusBarHeight = (isPortrait) ? statusBarFrame.size.height : statusBarFrame.size.width;
         CGFloat statusBarWidth = (isPortrait) ? statusBarFrame.size.width : statusBarFrame.size.height;
         
+        // when the "personal hotspot" is showing, don't make the statusbar overlay twice as tall.
+        if (statusBarHeight > 20.0) {
+            statusBarHeight = 20.0;
+        }
+        
         self.frame = CGRectMake(0, 0, statusBarWidth, statusBarHeight);
         
         _contentView = [[UIView alloc] initWithFrame:self.frame];
